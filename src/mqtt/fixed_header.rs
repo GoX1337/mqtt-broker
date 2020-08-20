@@ -1,5 +1,4 @@
-mod msg_type;
-use msg_type::MessageType;
+use super::msg_type::MessageType;
 
 #[derive(Debug)]
 pub struct FixedHeader {

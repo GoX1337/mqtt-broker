@@ -16,7 +16,7 @@ fn handle_connection(mut stream: TcpStream) {
     match stream.read_to_end(&mut buffer) {
         Ok(_result) => {
             //println!("Request: {:?}, result: {}", buffer, result);
-            let packet = mqtt::MqttPacket::new(buffer);
+            let packet = mqtt::packet::MqttPacket::new(buffer);
             println!("{:?}", packet);
         },
         Err(_) => println!("Client disconnected")
