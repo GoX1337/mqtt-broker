@@ -4,7 +4,7 @@ use super::msg_type::MessageType;
 pub struct FixedHeader {
     message_type: MessageType,
     reserved: u8,
-    length: u8,
+    pub length: usize,
 }
 impl FixedHeader {
     pub fn new(buffer: &[u8]) -> FixedHeader {
@@ -21,7 +21,7 @@ impl FixedHeader {
         FixedHeader {
             message_type: msg_type,
             reserved: reserved,
-            length: buffer[1]
+            length: 2
         }
     }
 }

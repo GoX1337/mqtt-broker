@@ -9,11 +9,15 @@ pub struct MqttPacket {
     payload: Payload
 }
 impl MqttPacket {
-    pub fn new(buffer: Vec<u8>) -> MqttPacket {
+    pub fn new(buffer: &[u8]) -> MqttPacket {
+        println!("MqttPacket buffer: {:?}, len:{}", buffer, buffer.len());
+        let fixed_header = FixedHeader::new(&buffer);
+        let variable_header = VariableHeader::new(&buffer, fixed_header.length);
+        let payload = Payload::new(&buffer, fixed_header.length + variable_header.length);
         MqttPacket {
-            fixed_header: FixedHeader::new(&buffer[0..2]),
-            variable_header: VariableHeader::new(&buffer[2..12]),
-            payload: Payload::new(&buffer[12..])
+            fixed_header: fixed_header,
+            variable_header: variable_header,
+            payload: payload
         }
     }
 }
