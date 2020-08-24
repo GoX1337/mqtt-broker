@@ -14,11 +14,16 @@ fn main() {
 
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 2048];
-    match stream.read(&mut buffer) {
-        Ok(n) => {
-            let packet = mqtt::packet::MqttPacket::new(&buffer[..n]);
-            println!("{:?}", packet);
-        },
-        Err(_) => println!("Client disconnected")
+    let mqtt_response = match stream.read(&mut buffer) {
+        Ok(n) => mqtt::process_packet(&buffer[..n]),
+        Err(_) => {
+            println!("Client disconnected");
+            None
+        }
+    };
+
+    match mqtt_response {
+        Some(resp) => println!("{:?}", resp),
+        None => ()
     }
 }

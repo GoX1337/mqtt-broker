@@ -10,7 +10,7 @@ pub struct Payload {
 impl Payload {
     pub fn new(buffer: &[u8], start: usize) -> Payload {
         let mut index = start;
-        println!("Payload {:?}", &buffer[index..]);
+        //println!("Payload {:?}", &buffer[index..]);
         index = index + 1;
         let client_id_len = buffer[index] as usize;
         index = index + 1;

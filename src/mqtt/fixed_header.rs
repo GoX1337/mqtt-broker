@@ -2,8 +2,8 @@ use super::msg_type::MessageType;
 
 #[derive(Debug)]
 pub struct FixedHeader {
-    message_type: MessageType,
-    reserved: u8,
+    pub message_type: MessageType,
+    pub reserved: u8,
     pub length: usize,
 }
 impl FixedHeader {
